@@ -1,0 +1,30 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "A to-do list is a simple and effective tool used to manage tasks, prioritize activities, and organize daily responsibilities. It serves as a visual reminder of what needs to be done, helping individuals stay focused, productive, and on track.",
+  "main": "index.js",
+  "scripts": {
+    "start":"nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AniketKumar06/TO-DO_Android_Appliction.git"
+  },
+  "author": "Aniket kumar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AniketKumar06/TO-DO_Android_Appliction/issues"
+  },
+  "homepage": "https://github.com/AniketKumar06/TO-DO_Android_Appliction#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "colors": "^1.4.0",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^7.3.0",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.22"
+  }
+}
