@@ -38,18 +38,12 @@ router.get('/', user_jwt, async (req, res, next) => {
 
 router.post('/register', async (req, res, next) => {
     const { username, email, password } = req.body;
+    if (!username || !email || !password) {
+        return res.status(422).json({ error: "Please filled the field correctly" });
+    }
 
     try {
-        // Verify content get from User
 
-        // if (!(email && password && username)) {
-        //     res.status(400).json({
-        //         success: false,
-        //         msg: "All fields are required"
-        //     })
-        // }
-
-        // Check userExist or not
         let userExists = await User.findOne({ email: email });
 
         if (userExists) {
@@ -88,24 +82,13 @@ router.post('/register', async (req, res, next) => {
                     res.status(200).json({
                         success: true,
                         token: token,
-                        msg: "User Registered"
+                        msg: "Successfully User Registered",
+                        user: user
                     })
                 }
             )
             // save user in database
             await user.save();
-
-            // res.status(200).json({
-            //     success: true,
-            //     msg: "User Registered",
-            //     userExist: user
-            // });
-
-
-
-
-
-
         }
     } catch (error) {
         console.log(error);
@@ -118,9 +101,9 @@ router.post('/register', async (req, res, next) => {
  * 
 */
 
+
 router.post('/login', async (req, res, next) => {
-    const email = req.body.email;
-    const password = req.body.password;
+    const { email, password } = req.body;
     try {
         let user = await User.findOne({ email: email });
         if (!user) {
@@ -138,39 +121,37 @@ router.post('/login', async (req, res, next) => {
             });
         }
 
-
-
-
-        // create token 
+// create tokenn
         const payload = {
             user: {
-                id: User._id
+                id: user._id
             }
         };
-
         jwt.sign(payload, process.env.jwtUserSecret,
             {
-                expiresIn: "3h"
+                expiresIn: "2h",
             },
             (err, token) => {
                 if (err) throw err;
+                user.token = token;
                 res.status(200).json({
                     success: true,
-                    msg: "Login successfully",
+                    msg: "Login Successfully",
+                    user: User,
                     token: token,
-                    user: user
-                });
-            });
-
+                })
+            }
+        );
 
     } catch (error) {
-        console.log(error);
+        console.log(error.message);
         res.status(500).json({
             success: false,
-            msg: "server Error"
+            msg: "Server Error",
         })
         next();
     }
 });
+
 
 module.exports = router;
