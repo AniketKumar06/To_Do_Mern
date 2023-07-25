@@ -1,24 +1,19 @@
-import http from 'http';
-import app from './app.js';
+import { createServer } from 'http';
 import color from 'colors';
-import dotenv from 'dotenv';
+import { config } from 'dotenv';
+import app from './app.js';
 
-
-/** Config the dotenv enviromental file  */
-dotenv.config({
-    path: './env/config.env'
-});
-
+config();
 
 try {
-    const server = http.createServer(app);
+    const server = createServer(app);
 
-    const PORT = process.env.PORT || 5000;
+    const PORT = process.env.PORT;
 
     server.listen(PORT, () => {
-        console.log(`Server is Running on ${PORT}`.yellow.underline.bold);
+        console.log(`Server in ${process.env.MODE_DEV} and Running on ${PORT}`.yellow.underline.bold);
     })
 
 } catch (error) {
-    console.log("Server Error to Start");
+    console.log("Server Error to Start".red.underline.bold);
 }
