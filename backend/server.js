@@ -3,20 +3,15 @@ import color from 'colors';
 import { config } from 'dotenv';
 import app from './app.js';
 
-
-/** Config the dotenv enviromental file  */
-config({
-    path: './env/config.env'
-});
-
+config();
 
 try {
     const server = createServer(app);
 
-    const PORT = process.env.PORT || 3000;
+    const PORT = process.env.PORT;
 
     server.listen(PORT, () => {
-        console.log(`Server is Running on ${PORT}`.yellow.underline.bold);
+        console.log(`Server in ${process.env.MODE_DEV} and Running on ${PORT}`.yellow.underline.bold);
     })
 
 } catch (error) {

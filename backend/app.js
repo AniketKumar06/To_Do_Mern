@@ -1,6 +1,6 @@
 import express from 'express';
-import morgan from 'morgan';
-import connectDB from './api/database/connect.js';
+import mongan from 'morgan'
+import connectDB from './api/database/db.js';
 import bodyParser from 'body-parser';
 
 /**Create app using express */
@@ -10,7 +10,7 @@ const app = express.Router();
 connectDB();
 
 /** Morgan method display */
-app.use(morgan('dev'));
+app.use(mongan('dev'));
 
 /**Create body parse for json  middle*/
 
