@@ -1,6 +1,8 @@
 import userModel from "../models/userModel.js";
 
-const userRegisterController = async (req, res, next) => {
+
+/** Register */
+export const userRegisterController = async (req, res, next) => {
 
     try {
         /**Validation */
@@ -37,6 +39,30 @@ const userRegisterController = async (req, res, next) => {
         next(error)
     }
 
-}
+};
 
-export { userRegisterController };
+
+/**Login*/
+
+export const userLogingController = async (req,res,next)=>{
+    try{
+        const userEixst = await userModel.findOne({
+            email: req.body.email,
+        })
+        if (!userEixst) {
+            return res.status(404).json({
+                success: false,
+                message: " User Not Found !! Please Register"
+            })
+        }
+        res.status(200).json({
+            success: true,
+            msg: "Login Successful!!"
+        })
+    }
+    catch (error) {
+        console.log("Error");
+        next(error)
+    }
+    
+}

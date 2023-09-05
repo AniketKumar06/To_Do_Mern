@@ -2,8 +2,8 @@ import express from 'express';
 import mongan from 'morgan'
 import connectDB from './api/database/db.js';
 import bodyParser from 'body-parser';
-import userRoutes from './api/routes/user';
-import adminRoutes from './api/routes/admin/adminRouter.js'
+import userRouter from './api/routes/user/userRouter.js';
+import adminRouter from './api/routes/admin/adminRouter.js'
 
 /**Create app using express */
 
@@ -26,7 +26,7 @@ app.use(bodyParser.json());
 
 /** Creating routers */
 
-app.use('/api/auth/user', userRoutes);
-app.use('/api/v1/auth/admin',adminRoutes)
+app.use('/api/v1/auth/user', userRouter);
+app.use('/api/v1/auth/admin',adminRouter)
 
 export default app;
