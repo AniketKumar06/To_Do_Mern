@@ -1,21 +1,24 @@
-import userModel from "../models/userModel.js";
+import hashpassword from "../../helpers/encryptDecryptPassword/encryptPassword.js";
+import userModel from "../../models/user/userModel.js";
 
 
 /** Register */
 export const userRegisterController = async (req, res, next) => {
-
+    const { name , email ,phone ,password,confPassword} = req.body;
     try {
         /**Validation */
 
-        if ((!req.body.name) || (!req.body.email) || (!req.body.phone) || (!req.body.password)) {
+        if ((!name) || (!email) || (!phone) || (!password)) {
             return res.status(403).json({
                 success: false,
                 message: "All Feild are Required!!"
             })
         }
+
         const userEixst = await userModel.findOne({
-            email: req.body.email,
-        })
+            email: email.toLowerCase()
+        });
+
         if (userEixst) {
             return res.status(404).json({
                 success: false,
@@ -23,11 +26,21 @@ export const userRegisterController = async (req, res, next) => {
             })
         }
 
+        var isMatchPassword = (password === confPassword);
+        if (!isMatchPassword) {
+            return res.status(402).json({
+                success: true,
+                error: 'password does not match'
+            });
+        }
+
+        let encryptPassword = hashpassword(password);
+
         let newUser = new userModel();
-        newUser.name = req.body.name;
-        newUser.email = req.body.name;
-        newUser.phone = req.body.phone;
-        newUser.password = req.body.password;
+        newUser.name = name.toLowerCase();
+        newUser.email =email.toLowerCase();
+        newUser.phone =phone ;
+        newUser.password = encryptPassword;
 
         console.log(newUser);
 
@@ -46,23 +59,30 @@ export const userRegisterController = async (req, res, next) => {
 
 export const userLogingController = async (req,res,next)=>{
     try{
-        const userEixst = await userModel.findOne({
-            email: req.body.email,
-        })
-        if (!userEixst) {
-            return res.status(404).json({
-                success: false,
-                message: " User Not Found !! Please Register"
-            })
+        const { email , password } = req.body;
+
+        const userExist = await adminModel.findOne({
+            email : email.toLowerCase(),
+        });
+
+        if(!userExist){
+            return  res.status(404).json({
+                success:false,
+                msg:"No User found!!"
+            });
         }
-        res.status(200).json({
-            success: true,
-            msg: "Login Successful!!"
-        })
+
+        const decryptPass = await comparePassword(password,adminExist.password);
+        console.log(decryptPass);
+
     }
     catch (error) {
-        console.log("Error");
-        next(error)
+        console.log("Error in Admin Login Controller", error);
+        return res.status(500).json({
+            sucess: false,
+            msg: 'Internal Server Error'
+        })
+        next(error);
     }
-    
+
 }
