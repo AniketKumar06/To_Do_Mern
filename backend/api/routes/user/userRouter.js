@@ -1,6 +1,7 @@
 import express from 'express';
-import mongoose from 'mongoose';
-import { userRegisterController } from '../controllers/userController.js';
+
+import { userRegisterController } from '../../controllers/user/userController.js';
+import { userLogingController } from '../../controllers/user/userController.js';
 
 /**Create Routes */
 const router = express.Router();
@@ -14,7 +15,11 @@ const router = express.Router();
  */
 router.post('/register', userRegisterController)
 
-
+/**
+ * Action : Login User
+ * METHOD : POST 
+ */
+router.post('/login',userLogingController)
 
 /**
  * Export Router
