@@ -1,16 +1,14 @@
 import bycrpt from 'bcryptjs'
 
-const hashpassword = async(plainPassword) =>{
+const hashpassword = async(plainPasswod) =>{
     try {
         const saltRound = 10;
-        const hashedpassword = await bycrpt.hash(plainPassword, saltRound);
+        const hashedpassword = await bycrpt.hash(plainPasswod, saltRound);
         return hashedpassword;
     }
     catch(error){
         console.log("Password can't encrypted!")
     }
 }
-
-console.log(hashpassword);
 
 export default hashpassword;
