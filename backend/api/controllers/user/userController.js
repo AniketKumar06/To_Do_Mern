@@ -1,6 +1,6 @@
-import hashpassword from "../../helpers/encryptDecryptPassword/encryptPassword.js";
 import userModel from "../../models/user/userModel.js";
-
+import comparePassword  from '../../helpers/encryptDecryptPassword/decryptPassword.js';
+import hashpassword from "../../helpers/encryptDecryptPassword/encryptPassword.js";
 
 /** Register */
 export const userRegisterController = async (req, res, next) => {
@@ -42,7 +42,7 @@ export const userRegisterController = async (req, res, next) => {
         newUser.name = name.toLowerCase();
         newUser.email =email.toLowerCase();
         newUser.phone =phone;
-        newUser.password = password;
+        newUser.password =  encryptPassword;
 
         console.log(newUser);
 
@@ -63,7 +63,7 @@ export const userLogingController = async (req,res,next) =>{
     try{
         const { email , password } = req.body;
 
-        const userExist = await adminModel.findOne({
+        const userExist = await userModel.findOne({
             email : email.toLowerCase(),
         });
 
