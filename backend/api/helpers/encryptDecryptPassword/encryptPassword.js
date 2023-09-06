@@ -11,6 +11,4 @@ const hashpassword = async(plainPassword) =>{
     }
 }
 
-console.log(hashpassword);
-
 export default hashpassword;
