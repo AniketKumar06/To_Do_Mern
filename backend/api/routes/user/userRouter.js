@@ -1,18 +1,18 @@
-import express from 'express';
+import {Router} from 'express';
 
 import { userRegisterController } from '../../controllers/user/userController.js';
 import { userLogingController } from '../../controllers/user/userController.js';
 
 /**Create Routes */
-const router = express.Router();
+const router = Router();
 
 
 /**Create Router Method */
-
 /**
  * Action : Register User
  * METHOD : POST
  */
+
 router.post('/register', userRegisterController)
 
 /**

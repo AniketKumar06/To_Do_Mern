@@ -13,12 +13,12 @@ const userModelSchema = new mongoose.Schema({
     phone: {
         type: Number,
         required: true,
-        unique: true
     },
     password: {
         type: String,
         required: true
-    }, role: {
+    }, 
+    role: {
         type: Number,
         default: 0
     }
