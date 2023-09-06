@@ -21,7 +21,7 @@ export const userRegisterController = async (req, res, next) => {
         });
 
         if (userEixst) {
-            return res.status(404).json({
+            return res.status(409).json({
                 success: false,
                 message: " User Allready Exist !! Please Login"
             })
