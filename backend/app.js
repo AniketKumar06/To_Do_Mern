@@ -7,9 +7,7 @@ import adminRouter from './api/routes/admin/adminRouter.js'
 
 /**Create app using express */
 
-const app = express.Router();
-
-
+const app = express();
 
 /** Morgan method display */
 app.use(mongan('dev'));
