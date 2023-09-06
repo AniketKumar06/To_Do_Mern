@@ -31,7 +31,7 @@ export const userRegisterController = async (req, res, next) => {
         if (!isMatchPassword) {
             return res.status(402).json({
                 success: true,
-                error: 'password does not match'
+                error: 'Password Does Not Match!!'
             });
         }
 
